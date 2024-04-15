@@ -1,8 +1,26 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Technologies 🔧
 
-First, run the development server:
+- Next.js(React)
+- TypeScript
+- Shadcn/ui
+- Tailwind
+
+
+<br>
+
+## Getting Started 💾
+
+Cloner le le repo : 
+```bash
+https://github.com/LionAB/basi-ai-chat.git
+```
+
+Remplir les variable d'environnement `.env` : 
+```bash
+    
+```
 
 ```bash
 npm run dev

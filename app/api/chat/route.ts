@@ -2,13 +2,19 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { OpenAIStream ,StreamingTextResponse} from 'ai';
 
-const openai = new OpenAI({ apiKey:"lm-studio",baseURL:"http://localhost:1234/v1"})
+const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '', // Ensure to provide a default value or handle missing environment variables
+    baseURL: process.env.NEXT_PUBLIC_OPENAI_API_BASEURL || '', // Ensure to provide a default value or handle missing environment variables
+});
+
+const model = process.env.NEXT_PUBLIC_OPENAI_MODEL || '';
 
 export async function POST(req:Request){
+    
     try{
         const {messages} = await req.json()
         const response = await openai.chat.completions.create({
-            model:"lm-studio",
+            model:model,
             stream:true,
             messages
         })

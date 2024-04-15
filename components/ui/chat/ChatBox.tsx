@@ -132,9 +132,16 @@ import { ChatWindow } from './ChatWindow';
 import {  useEffect, useRef } from 'react';
 export function ChatBox() {
   const ref =useRef<HTMLDivElement>(null);
+  const inputRef=useRef<HTMLInputElement>(null);
   const {messages,input,handleInputChange,handleSubmit,isLoading,error} = 
-  useChat(
-   
+  useChat({
+    initialMessages:[
+      {
+        id:Date.now().toString(),
+        role:'system',
+        content:'You are an assistant that gives short anwers to questions.'}
+      ]
+    }
   );
   useEffect(() => {
     if (ref.current === null){
@@ -150,17 +157,15 @@ export function ChatBox() {
     
       
         <div className='container flex h-screen flex-col items-center justify-center'>
-          <h1 className='font-serif text-2xl font-medium'>AI Chatbot</h1>
+          <h1 className='font-serif text-2xl font-medium text-primary'>AI Chatbot</h1>
          <div className='mt-4 w-full max-w-lg'>
-         <ChatWindow scrollAreaRef={ref} messages={messages} />
+         <ChatWindow  messages={messages} scrollRef={ref}/>
         <form onSubmit={handleSubmit} className='relative'>
-         
-
-    
             <Input
               name='message'
               value={input}
               onChange={handleInputChange}
+              ref={inputRef}
               placeholder={
                'Ask me anything...'}
               className='pr-12 placeholder:italic placeholder:text-zinc-600/75 focus-visible:ring-zinc-500'
@@ -170,13 +175,12 @@ export function ChatBox() {
               type='submit'
               variant='secondary'
               disabled={isLoading}
-              className='absolute right-1 top-1 h-8 w-10'
+              className='absolute right-1 top-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90  h-8 w-10'
             >
-              <SendHorizontalIcon className='h-5 w-5 bg-secondary' />
+              <SendHorizontalIcon  className='h-5 w-5 ' />
             </Button>
           </form> 
           </div>
-
         </div>
     </section>
   )
